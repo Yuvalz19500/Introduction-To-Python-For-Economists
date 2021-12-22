@@ -1,10 +1,9 @@
 import sys
-
-import utils
+import user_interaction as ui
 
 
 def main():
-    utils.print_option_and_choose()
+    ui.print_option_and_choose()
     return 0
 
 
