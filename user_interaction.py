@@ -1,4 +1,5 @@
 import sys
+import datetime
 
 valid_options_step_one = ['A', 'B', 'C', 'D', 'a', 'b', 'c', 'd']
 date_options = ['A', 'B', 'C', 'a', 'b', 'c']
@@ -10,8 +11,8 @@ def print_option_and_choose():
     print("Please choose with which set of data you would like to work with:")
     print("A. NASDAQ 100\tB. S&P 500\tC. Russell 2000\tD. Quit")
     chosen_option = input("Please enter your option: ")
-    chosen_option = validate_option(chosen_option)
-    handle_option(chosen_option, False)
+    chosen_option = validate_option(chosen_option, False)
+    handle_option(chosen_option)
 
 
 def validate_option(option, is_index_option):
@@ -33,19 +34,22 @@ def validate_option(option, is_index_option):
 def handle_option(option):
     if option in date_options:
         dates = get_dates()
+        print_and_choose_index_options()
     else:
         sys.exit()
 
 
 def get_dates():
     start_date = input("Please choose a starting date (YYYY-MM-DD): ")
-    end_date = input("Please choose the final date (YYYY-MM-DD): \n")
+    start_date = validate_date(start_date, True)
+    end_date = input("Please choose the final date (YYYY-MM-DD): ")
+    end_date = validate_date(end_date, False)
 
     return {start_date, end_date}
 
 
 def print_and_choose_index_options():
-    print("What would you like to do:")
+    print("\nWhat would you like to do:")
     print("A. Plot a timeseries of the prices")
     print("B. Plot the timeseries of returns")
     print("C. Plot a histogram of the positive returns")
@@ -56,3 +60,24 @@ def print_and_choose_index_options():
     print("H. Return to choosing the data")
     index_option = input("Please enter your option: ")
     index_option = validate_option(index_option, True)
+
+
+def date_validation(date_string):
+    try:
+        datetime.datetime.strptime(date_string, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
+
+
+def validate_date(date_string, is_start):
+    if is_start:
+        is_start = "starting"
+    else:
+        is_start = "final"
+
+    while not date_validation(date_string):
+        date_string = input(
+            "Please choose a valid %s date (YYYY-MM-DD): " % (is_start))
+
+    return date_string
