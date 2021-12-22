@@ -4,7 +4,7 @@ valid_options_step_one = ['A', 'B', 'C', 'D', 'a', 'b', 'c', 'd']
 date_options = ['A', 'B', 'C', 'a', 'b', 'c']
 
 
-def print_and_choose_options():
+def print_option_and_choose():
     print("Please choose with which set of data you would like to work with:")
     print("A. NASDAQ 100\tB. S&P 500\tC. Russell 2000\tD. Quit")
     chosen_option = input("Please enter your option: ")

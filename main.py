@@ -4,7 +4,7 @@ import utils
 
 
 def main():
-    utils.print_and_choose_options()
+    utils.print_option_and_choose()
     return 0
 
 
