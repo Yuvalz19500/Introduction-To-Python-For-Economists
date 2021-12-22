@@ -9,7 +9,7 @@ index_options = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 
 def print_option_and_choose():
     print("Please choose with which set of data you would like to work with:")
-    print("A. NASDAQ 100\tB. S&P 500\tC. Russell 2000\tD. Quit")
+    print("A. NASDAQ 100    B. S&P 500    C. Russell 2000    D. Quit")
     chosen_option = input("Please enter your option: ")
     chosen_option = validate_option(chosen_option, False)
     handle_option(chosen_option)
@@ -34,7 +34,7 @@ def validate_option(option, is_index_option):
 def handle_option(option):
     if option in date_options:
         dates = get_dates()
-        print_and_choose_index_options()
+        handle_index_option(print_and_choose_index_options(), dates)
     else:
         sys.exit()
 
@@ -59,7 +59,7 @@ def print_and_choose_index_options():
     print("G. Check the % of correct predictions")
     print("H. Return to choosing the data")
     index_option = input("Please enter your option: ")
-    index_option = validate_option(index_option, True)
+    return validate_option(index_option, True)
 
 
 def date_validation(date_string):
@@ -81,3 +81,7 @@ def validate_date(date_string, is_start):
             "Please choose a valid %s date (YYYY-MM-DD): " % (is_start))
 
     return date_string
+
+
+def handle_index_option(index_option, dates):
+    return
