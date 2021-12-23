@@ -7,7 +7,7 @@ index_options = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
                  'H', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
 
-def print_option_and_choose():
+def print_options_and_choose():
     print("Please choose with which set of data you would like to work with:")
     print("A. NASDAQ 100    B. S&P 500    C. Russell 2000    D. Quit")
     chosen_option = input("Please enter your option: ")

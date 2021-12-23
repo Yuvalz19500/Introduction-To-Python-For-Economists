@@ -3,7 +3,7 @@ import user_interaction as ui
 
 
 def main():
-    ui.print_option_and_choose()
+    ui.print_options_and_choose()
     return 0
 
 
