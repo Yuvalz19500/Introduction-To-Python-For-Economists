@@ -1,5 +1,6 @@
 import sys
 import datetime
+import data
 
 valid_options_step_one = ['A', 'B', 'C', 'D', 'a', 'b', 'c', 'd']
 date_options = ['A', 'B', 'C', 'a', 'b', 'c']
@@ -34,7 +35,8 @@ def validate_option(option, is_index_option):
 def handle_option(option):
     if option in date_options:
         dates = get_dates()
-        handle_index_option(print_and_choose_index_options(), dates)
+        df = data.download_data_and_format(option, dates)
+        handle_index_option(print_and_choose_index_options(), df)
     else:
         sys.exit()
 
@@ -45,7 +47,7 @@ def get_dates():
     end_date = input("Please choose the final date (YYYY-MM-DD): ")
     end_date = validate_date(end_date, False)
 
-    return {start_date, end_date}
+    return {'start_date': start_date, 'end_date': end_date}
 
 
 def print_and_choose_index_options():
@@ -78,10 +80,10 @@ def validate_date(date_string, is_start):
 
     while not date_validation(date_string):
         date_string = input(
-            "Please choose a valid %s date (YYYY-MM-DD): " % (is_start))
+            "Please enter a valid %s date (YYYY-MM-DD): " % (is_start))
 
     return date_string
 
 
-def handle_index_option(index_option, dates):
+def handle_index_option(index_option, df):
     return
