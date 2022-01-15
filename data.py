@@ -13,7 +13,7 @@ def download_data_and_format(option, dates):
     df = df.drop('date', axis=1).set_index('formatted_date')
     df.head()
 
-    return add_columns(df)
+    return add_returns_columns(df)
 
 
 def format_option(option):
@@ -25,7 +25,7 @@ def format_option(option):
         return 'IWM'
 
 
-def add_columns(df):
+def add_returns_columns(df):
     df['returns'] = (df['adjclose'] / df['adjclose'].shift(1)) - 1
     df.head()
 
