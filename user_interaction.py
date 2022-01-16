@@ -15,6 +15,7 @@ def print_options_and_choose():
     chosen_option = input("Please enter your option: ")
     chosen_option = validate_option(chosen_option, False)
     handle_option(chosen_option)
+    return chosen_option
 
 
 def validate_option(option, is_index_option):
@@ -44,10 +45,19 @@ def handle_option(option):
 
 
 def get_dates():
-    start_date = input("Please choose a starting date (YYYY-MM-DD): ")
-    start_date = validate_date(start_date, True)
-    end_date = input("Please choose the final date (YYYY-MM-DD): ")
-    end_date = validate_date(end_date, False)
+    start_date = "0"
+    end_date = "0"
+
+    print("\nPlease provide a starting date and an end date. Please Make sure:")
+    print("1. The format is as specified.")
+    print("2. The date is valid (not greater than today).")
+    print("3. The end date is bigger than the start date.")
+    print("Otherwise the program will not continue.\n")
+    while not date_validation(start_date) or datetime.datetime.strptime(start_date, '%Y-%m-%d') > datetime.datetime.now():
+        start_date = input("Please choose a starting date (YYYY-MM-DD): ")
+
+    while not date_validation(end_date) or datetime.datetime.strptime(end_date, '%Y-%m-%d') > datetime.datetime.now() or datetime.datetime.strptime(end_date, '%Y-%m-%d') < datetime.datetime.strptime(start_date, '%Y-%m-%d'):
+        end_date = input("Please choose the final date (YYYY-MM-DD): ")
 
     return {'start_date': start_date, 'end_date': end_date}
 
