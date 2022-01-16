@@ -17,9 +17,9 @@ def download_data_and_format(option, dates):
 
 
 def format_option(option):
-    if(option == 'a' or option == 'A'):
+    if option == 'a' or option == 'A':
         return 'QQQ'
-    elif(option == 'b' or option == 'B'):
+    elif option == 'b' or option == 'B':
         return 'SPY'
     else:
         return 'IWM'

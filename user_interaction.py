@@ -1,6 +1,7 @@
 import sys
 import datetime
 import data
+import data_manipulation as dml
 
 valid_options_step_one = ['A', 'B', 'C', 'D', 'a', 'b', 'c', 'd']
 date_options = ['A', 'B', 'C', 'a', 'b', 'c']
@@ -9,7 +10,7 @@ index_options = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 
 
 def print_options_and_choose():
-    print("Please choose with which set of data you would like to work with:")
+    print("\nPlease choose with which set of data you would like to work with:")
     print("A. NASDAQ 100    B. S&P 500    C. Russell 2000    D. Quit")
     chosen_option = input("Please enter your option: ")
     chosen_option = validate_option(chosen_option, False)
@@ -36,6 +37,7 @@ def handle_option(option):
     if option in date_options:
         dates = get_dates()
         df = data.download_data_and_format(option, dates)
+        print(df)
         handle_index_option(print_and_choose_index_options(), df)
     else:
         sys.exit()
@@ -86,4 +88,19 @@ def validate_date(date_string, is_start):
 
 
 def handle_index_option(index_option, df):
-    return
+    if index_option == 'A' or index_option == 'a':
+        dml.handle_option_a(df)
+    elif index_option == 'B' or index_option == 'b':
+        dml.handle_option_b(df)
+    elif index_option == 'C' or index_option == 'c':
+        dml.handle_option_c(df)
+    elif index_option == 'D' or index_option == 'd':
+        dml.handle_option_d(df)
+    elif index_option == 'E' or index_option == 'e':
+        dml.handle_option_e(df)
+    elif index_option == 'F' or index_option == 'f':
+        dml.handle_option_f(df)
+    elif index_option == 'G' or index_option == 'g':
+        dml.handle_option_g(df)
+    else:
+        print_options_and_choose()
