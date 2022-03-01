@@ -1,3 +1,4 @@
+from statistics import mode
 from matplotlib import pyplot as plt
 from statsmodels.formula.api import ols
 import numpy as np
@@ -83,13 +84,24 @@ def handle_option_e(df):
 
 def handle_option_f(df):
     # A function that handles index option f
-    df["temp"] = np.where(df["close"] > df["open"], 1, 0)
-    df.head()
-    model = ols(formula='pos_returns~lag_ret + temp ', data=df)
+    model = create_model(df)
     model_res = model.fit()
     print(model_res.summary())
 
 
 def handle_option_g(df):
     # A function that handles index option g
-    return
+    model = create_model(df)
+    prediction = model.fit().predict(df)
+    rounded_prediction = np.where(prediction > 0.5, 1, 0)
+    accuracy = np.where(rounded_prediction == df["pos_returns"], 1, 0)
+    print("The % of correct predictions is: ", round(np.mean(accuracy), 4))
+
+
+def create_model(df):
+    # A function that creates ols model
+    df["temp"] = np.where(df["close"] > df["open"], 1, 0)
+    df.head()
+    model = ols(formula='pos_returns~lag_ret + temp ', data=df)
+    df = df.drop('temp', axis=1)
+    return model
