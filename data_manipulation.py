@@ -1,8 +1,10 @@
 from matplotlib import pyplot as plt
 from statsmodels.formula.api import ols
+import numpy as np
 
 
 def handle_option_a(df):
+    # A function that handles index option a
     plt.figure(figsize=(15, 10))
     plt.gca().xaxis.set_major_locator(plt.MultipleLocator(120))
 
@@ -19,6 +21,7 @@ def handle_option_a(df):
 
 
 def handle_option_b(df):
+    # A function that handles index option b
     plt.figure(figsize=(15, 10))
     plt.gca().xaxis.set_major_locator(plt.MultipleLocator(120))
 
@@ -35,6 +38,7 @@ def handle_option_b(df):
 
 
 def handle_option_c(df):
+    # A function that handles index option c
     plt.figure(figsize=(15, 10))
 
     plt.rc('xtick', labelsize=14)
@@ -50,6 +54,7 @@ def handle_option_c(df):
 
 
 def handle_option_d(df):
+    # A function that handles index option d
     plt.figure(figsize=(15, 10))
 
     plt.rc('xtick', labelsize=14)
@@ -65,14 +70,26 @@ def handle_option_d(df):
 
 
 def handle_option_e(df):
-    return
+    # A function that handles index option e
+    mean = df["returns"].mean()
+    standard_deviation = df["returns"].std()
+    coefficient = standard_deviation / mean
+
+    print('The average daily returns: %f' % (mean))
+    print('The average daily returns standard deviation: %f' %
+          (standard_deviation))
+    print('The coefficient of variation of the returns : %f' % (coefficient))
 
 
 def handle_option_f(df):
-    model = ols(formula='pos_returns', data=df)
+    # A function that handles index option f
+    df["temp"] = np.where(df["close"] > df["open"], 1, 0)
+    df.head()
+    model = ols(formula='pos_returns~lag_ret + temp ', data=df)
     model_res = model.fit()
     print(model_res.summary())
 
 
 def handle_option_g(df):
+    # A function that handles index option g
     return

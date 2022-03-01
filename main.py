@@ -3,6 +3,7 @@ import user_interaction as ui
 
 
 def main():
+    # The main function that runs the program
     chosen_option = ui.print_options_and_choose()
     while chosen_option != 'D' or chosen_option != 'd':
         chosen_option = ui.print_options_and_choose()

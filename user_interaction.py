@@ -10,6 +10,7 @@ index_options = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 
 
 def print_options_and_choose():
+    # A function that prints all the available inputs to the user and gets his choice
     print("\nPlease choose with which set of data you would like to work with:")
     print("A. NASDAQ 100    B. S&P 500    C. Russell 2000    D. Quit")
     chosen_option = input("Please enter your option: ")
@@ -19,6 +20,7 @@ def print_options_and_choose():
 
 
 def validate_option(option, is_index_option):
+    # A function that validates the chosen input from the user
     new_option = option
     if is_index_option:
         while not new_option in index_options:
@@ -35,16 +37,17 @@ def validate_option(option, is_index_option):
 
 
 def handle_option(option):
+    # A function that decides what to with the user input
     if option in date_options:
         dates = get_dates()
         df = data.download_data_and_format(option, dates)
-        print(df)
         handle_index_option(print_and_choose_index_options(), df)
     else:
         sys.exit()
 
 
 def get_dates():
+    # A function that handles date input from the user
     start_date = "0"
     end_date = "0"
 
@@ -63,6 +66,7 @@ def get_dates():
 
 
 def print_and_choose_index_options():
+    # A function that prints and handles index options for a selected ticker
     print("\nWhat would you like to do:")
     print("A. Plot a timeseries of the prices")
     print("B. Plot the timeseries of returns")
@@ -73,10 +77,12 @@ def print_and_choose_index_options():
     print("G. Check the % of correct predictions")
     print("H. Return to choosing the data")
     index_option = input("Please enter your option: ")
+    print()
     return validate_option(index_option, True)
 
 
 def date_validation(date_string):
+    # A function that validates a date string
     try:
         datetime.datetime.strptime(date_string, '%Y-%m-%d')
         return True
@@ -84,20 +90,8 @@ def date_validation(date_string):
         return False
 
 
-def validate_date(date_string, is_start):
-    if is_start:
-        is_start = "starting"
-    else:
-        is_start = "final"
-
-    while not date_validation(date_string):
-        date_string = input(
-            "Please enter a valid %s date (YYYY-MM-DD): " % (is_start))
-
-    return date_string
-
-
 def handle_index_option(index_option, df):
+    # A function that handles the selected index option by the user
     if index_option == 'A' or index_option == 'a':
         dml.handle_option_a(df)
     elif index_option == 'B' or index_option == 'b':

@@ -4,6 +4,7 @@ import numpy as np
 
 
 def download_data_and_format(option, dates):
+    # A function that downloads and formats a specific ticker data from yahoo finnancials
     ticker = format_option(option)
     yahoo_f = yf.YahooFinancials(ticker)
 
@@ -17,6 +18,7 @@ def download_data_and_format(option, dates):
 
 
 def format_option(option):
+    # A function that formats a selected option to a ticker
     if option == 'a' or option == 'A':
         return 'QQQ'
     elif option == 'b' or option == 'B':
@@ -26,6 +28,7 @@ def format_option(option):
 
 
 def add_returns_columns(df):
+    # A function that adds returns columns to our data table
     df['returns'] = (df['adjclose'] / df['adjclose'].shift(1)) - 1
     df.head()
 
